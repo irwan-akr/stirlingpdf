@@ -1,0 +1,15 @@
+version: '3.3'
+services:
+  stirling-pdf:
+    image: stirlingtools/stirling-pdf:latest
+    container_name: stirling-pdf
+    ports:
+      - '8082:8080'
+    volumes:
+      - ./stirling-data:/configs
+    environment:
+      - TEMP_FILES_LIFETIME_HOURS=0         # Hapus file lebih dari 24 jam
+      - TEMP_CLEANUP_INTERVAL_MINUTES=5     # Jalankan cleanup setiap jam
+      - DELETE_EMPTY_USER_FOLDERS=true       # Hapus folder kosong otomatis
+      - SERVER_MAX_UPLOAD_SIZE_MB=200        # OPTIONAL: batas upload user
+    restart: unless-stopped
